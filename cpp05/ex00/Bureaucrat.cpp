@@ -6,7 +6,7 @@
 /*   By: tanselbay1 <tanselbay1@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:54:39 by tanselbayra       #+#    #+#             */
-/*   Updated: 2025/11/26 16:13:40 by tanselbay1       ###   ########.fr       */
+/*   Updated: 2025/12/04 15:50:29 by tanselbay1       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &src) {
 		this->_grade = src._grade;
 		
 	std::cout << "Assignment operator called for " << this->_name << std::endl;
+	return *this;
 }
 
 Bureaucrat::~Bureaucrat(void) {
