@@ -1,50 +1,38 @@
-NAME        = bureaucrat
+# Compiler and flags
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-CC          = c++
-CFLAGS      = -Wall -Wextra -Werror -std=c++98 -MMD -MP
+# Executable name
+NAME = Bureaucrat
 
 # Source files
-SRCS        = main.cpp Bureaucrat.cpp
+SRCS = main.cpp \
+       Bureaucrat.cpp
 
-# Object directory
-OBJ_DIR     = obj/
+# Object files (derived from source files)
+OBJS = $(SRCS:.cpp=.o)
 
-# Convert source files to object files in the obj directory
-OBJS        = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
-
-# Dependency files (generated automatically by -MMD)
-DEPS        = $(OBJS:.o=.d)
-
-RM          = rm -rf
-
-# Colors (Optional, just makes it look nice)
-GREEN       = \033[0;32m
-RESET       = \033[0m
-
+# Default rule: build the executable
 all: $(NAME)
 
+# Rule to link the object files into the final executable
 $(NAME): $(OBJS)
-	@echo "$(GREEN)Linking $(NAME)...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)Compilation successful!$(RESET)"
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
-# Pattern rule to compile .cpp to .o
-# The | ensure directory exists but doesn't rebuild if dir timestamp changes
-$(OBJ_DIR)%.o: %.cpp
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+# Rule to compile .cpp files into .o files
+%.o: %.cpp Bureaucrat.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Rule to clean up object files
 clean:
-	$(RM) $(OBJ_DIR)
-	@echo "Object files removed."
+	rm -f $(OBJS)
 
+# Rule to clean up object files and the executable
 fclean: clean
-	$(RM) $(NAME)
-	@echo "Executable removed."
+	rm -f $(NAME)
 
+# Rule to re-compile the project from scratch
 re: fclean all
 
-# Include the dependency files so Make knows about header changes
--include $(DEPS)
-
-.PHONY: all clean fclean re
+# Phony targets are not actual files
+.PHONY: all clean fclean re% 
