@@ -6,7 +6,7 @@
 /*   By: tanselbayraktaroglu <tanselbayraktarogl    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:59:41 by tanselbayra       #+#    #+#             */
-/*   Updated: 2025/12/16 21:01:53 by tanselbayra      ###   ########.fr       */
+/*   Updated: 2025/12/16 21:08:40 by tanselbayra      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int			Form::getGradeExec(void) const { return this->_grade_exec; }
 
 // Overload operator
 std::ostream &operator<<(std::ostream &o, const Form &rhs) {
-	o << "Bureaucrat " << rhs.getName() << std::endl;
+	o	<< "Form " << rhs.getName()
+		<< ", signed: " << (rhs.getSigned() ? "yes" : "no")
+		<< ", sign grade: " << rhs.getGradeSign()
+		<< ", exec grade: " << rhs.getGradeExec();
 	return o;
 }
