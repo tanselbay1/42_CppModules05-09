@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tanselbayraktaroglu <tanselbayraktarogl    +#+  +:+       +#+        */
+/*   By: tanselbay1 <tanselbay1@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:59:41 by tanselbayra       #+#    #+#             */
-/*   Updated: 2025/12/16 21:08:40 by tanselbayra      ###   ########.fr       */
+/*   Updated: 2025/12/17 12:25:07 by tanselbay1       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,23 @@ std::string Form::getName(void) const { return this->_name; }
 bool		Form::getSigned(void) const { return this->_signed; }
 int			Form::getGradeSign(void) const { return this->_grade_sign; }
 int			Form::getGradeExec(void) const { return this->_grade_exec; }
+
+// beSigned Function
+void Form::beSigned(const Bureaucrat &b) {
+	if (b.getGrade() > this->_grade_sign) {
+		throw Form::GradeTooLowException();
+	}
+	this->_signed = true;
+}
+
+// Exception Messages
+const char* Form::GradeTooHighException::what() const throw() {
+	return "Form grade is too high!";
+}
+
+const char* Form::GradeTooLowException::what() const throw() {
+	return "Form grade is too low!";
+}
 
 // Overload operator
 std::ostream &operator<<(std::ostream &o, const Form &rhs) {
